@@ -6,3 +6,5 @@ dist
 storybook-static
 build
 .idea
+yarn-error.log
+yarn.lock
