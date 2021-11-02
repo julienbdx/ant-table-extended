@@ -4,7 +4,6 @@ import { TableProps } from "antd/lib/table/Table";
 import TableExtendedButtons from "./Buttons/TableExtendedButtons";
 import "./TableExtended.css";
 import { ColumnsType } from "antd/es/table";
-import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
 
 export type ITableUtils = {
@@ -123,17 +122,6 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
               .toLowerCase()
               .includes(value.toLowerCase())
           : "",
-      render: (text) =>
-        searchValues.searchedColumn === dataIndex ? (
-          <Highlighter
-            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-            searchWords={[searchValues.searchText]}
-            autoEscape
-            textToHighlight={text ? text.toString() : ""}
-          />
-        ) : (
-          text
-        ),
     });
     const getColumnSortProps = (dataIndex) => {
       return {
