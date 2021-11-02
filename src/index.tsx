@@ -1,8 +1,6 @@
-import React from "react";
-import TableExtended from "./components/TableExtended";
+import TableExtended, { ITableUtils } from "./components/TableExtended";
+import { TableProps } from "antd/lib/table/Table";
 
-export const TableExtendedIndex = () => {
-  return <TableExtended />;
-};
+export type ITableProps<T> = TableProps<T> & ITableUtils;
 
-export default TableExtendedIndex;
+export default TableExtended;

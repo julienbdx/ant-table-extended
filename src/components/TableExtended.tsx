@@ -12,7 +12,7 @@ export type ITableUtils = {
   searchableColumnsKeys?: string[];
   sortableColumnsKeys?: string[];
   extraColumns?: ColumnsType;
-  extras?: JSX.Element;
+  extras?: JSX.Element[];
 };
 export type ITableProps<T> = TableProps<T> & ITableUtils;
 
