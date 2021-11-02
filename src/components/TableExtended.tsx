@@ -11,7 +11,7 @@ export type ITableUtils = {
   selectedColumnsKeys?: string[];
   searchableColumnsKeys?: string[];
   sortableColumnsKeys?: string[];
-  extraColumns?: ColumnsType;
+  extraColumns?: ColumnsType<any>;
   extras?: JSX.Element[];
 };
 export type ITableProps<T> = TableProps<T> & ITableUtils;
