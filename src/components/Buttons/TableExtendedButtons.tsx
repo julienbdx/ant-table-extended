@@ -34,6 +34,7 @@ export const TableExtendedButtons: React.FC<IColumnsButtonProps> = ({
           key="colonnes"
         />
         <ExportButton
+          key="export"
           labelExport={labelExporter}
           data={data}
           columns={columns}

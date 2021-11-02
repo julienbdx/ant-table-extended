@@ -3,7 +3,7 @@ module.exports = {
   rollup(config, options) {
     config.plugins.push(
       postcss({
-        modules: true,
+        modules: false,
       })
     );
     return config;

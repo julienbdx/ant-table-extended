@@ -46,15 +46,16 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
   };
 
   const prepareDataToCsv = useCallback(() => {
-    const res = [];
+    const res: Record<string, string>[] = [];
     data.forEach((row) => {
       let elem = {};
       transferTargetKeys.forEach((col) => {
         const columnDef = columns.find(
           (c) => c.key === col || c.id === col || c.dataIndex === col
         );
-        elem[columnDef.title || columnDef.label || columnDef.name || col] =
-          row[col];
+        elem[columnDef.title || columnDef.label || columnDef.name || col] = row[
+          col
+        ] as string;
       });
       res.push(elem);
     });
@@ -101,11 +102,12 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
         onCancel={() => setModalExportVisible(false)}
         footer={[
           <Space>
-            <Button onClick={print}>
+            <Button key="imprimer" onClick={print}>
               <PrinterOutlined className={"icon-mr"} />
               Imprimer
             </Button>
             <CSVLink
+              key="csv"
               className={"ant-btn"}
               separator={";"}
               data={prepareDataToCsv()}
@@ -114,7 +116,7 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
               <FileExcelOutlined className={"icon-mr"} />
               Télécharger au format CSV
             </CSVLink>
-            <Button key="back" onClick={() => setModalExportVisible(false)}>
+            <Button key="fermer" onClick={() => setModalExportVisible(false)}>
               Fermer
             </Button>
           </Space>,
