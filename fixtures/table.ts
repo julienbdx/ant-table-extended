@@ -1,9 +1,12 @@
+import { ColumnsType } from "antd/es/table";
+
+// @ts-ignore
 export { default as dataSource } from "./people-small";
 
-export const columns = [
+export const columns: ColumnsType = [
   {
-    dataIndex: "firstName",
     title: "First Name",
+    dataIndex: "firstName",
   },
   {
     dataIndex: "lastName",

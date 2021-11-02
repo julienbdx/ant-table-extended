@@ -2,6 +2,7 @@ import * as React from "react";
 import "antd/dist/antd.compact.min.css";
 import { Table } from "antd";
 import { TableProps } from "antd/lib/table/Table";
+// @ts-ignore
 import { columns, dataSource } from "../fixtures/table";
 import TableExtended from "../src/components/TableExtended";
 
@@ -19,5 +20,13 @@ export const Default = (props: TableProps<any>) => {
 };
 
 export const AntTableExtendedDefault = () => {
-  return <TableExtended dataSource={dataSource} columns={columns} />;
+  return (
+    <TableExtended
+      dataSource={dataSource}
+      selectedColumnsKeys={["firstName", "lastName"]}
+      columns={columns}
+      searchableColumnsKeys={["firstName"]}
+      sortableColumnsKeys={["firstName"]}
+    />
+  );
 };

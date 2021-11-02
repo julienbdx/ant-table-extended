@@ -1,0 +1,26 @@
+.TableExtended .mlauto-2 .ant-space-item:nth-child(2) {
+  margin-left: auto;
+}
+
+.ant-transfer-list-header-title {
+  font-weight: 500;
+  color: var(--antd-wave-shadow-color);
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.print-only {
+  display: none;
+}
+
+.icon-mr {
+  margin-right: 5px;
+}
+
+@media print {
+  .print-only {
+    display: block;
+  }
+}
