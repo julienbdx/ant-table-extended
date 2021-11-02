@@ -1,6 +1,6 @@
 {
   "name": "@julienbdx/ant-table-extended",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "author": {
     "name": "Julien Lemonnier",
     "url": "https://github.com/julienbdx"
@@ -10,7 +10,7 @@
     "url": "git://github.com/julienbdx/ant-table-extended.git"
   },
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   },
   "homepage": "https://github.com/julienbdx/ant-table-extended",
   "license": "MIT",
