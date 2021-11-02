@@ -101,10 +101,10 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
         onOk={() => setModalExportVisible(false)}
         onCancel={() => setModalExportVisible(false)}
         footer={[
-          <Space>
+          <Space key="footer-space">
             <Button key="imprimer" onClick={print}>
-              <PrinterOutlined className={"icon-mr"} />
-              Imprimer
+              <PrinterOutlined key="print-icon" className={"icon-mr"} />
+              <span key="print-lib">Imprimer</span>
             </Button>
             <CSVLink
               key="csv"
@@ -113,8 +113,8 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
               data={prepareDataToCsv()}
               filename={filename}
             >
-              <FileExcelOutlined className={"icon-mr"} />
-              Télécharger au format CSV
+              <FileExcelOutlined className={"icon-mr"} key="csv-icon" />
+              <span key="csv-lib">Télécharger au format CSV</span>
             </CSVLink>
             <Button key="fermer" onClick={() => setModalExportVisible(false)}>
               Fermer
@@ -136,6 +136,7 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
         <div ref={tableRef}>
           {data && (
             <Table
+              key="tab-print"
               className={"print-only"}
               defaultExpandAllRows={true}
               columns={prepareColumnsToPrint()}

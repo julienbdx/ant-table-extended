@@ -45,6 +45,7 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
   return (
     <>
       <Modal
+        key="modal-key"
         title="Choix des colonnes affichées"
         width={800}
         visible={modalColumnsVisible}
@@ -64,7 +65,11 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
           onChange={onItemTransferred}
         />
       </Modal>
-      <Button icon={<ColumnWidthOutlined />} onClick={handleColumnsButtonClick}>
+      <Button
+        key="columns-btn"
+        icon={<ColumnWidthOutlined />}
+        onClick={handleColumnsButtonClick}
+      >
         {labelColonnes}
       </Button>
     </>
