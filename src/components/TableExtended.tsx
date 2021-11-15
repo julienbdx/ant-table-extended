@@ -85,29 +85,16 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
               onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
               icon={<SearchOutlined />}
               size="small"
-              style={{ width: 90 }}
+              style={{ width: 120 }}
             >
-              Search
+              Rechercher
             </Button>
             <Button
               onClick={() => handleReset(clearFilters)}
               size="small"
               style={{ width: 90 }}
             >
-              Reset
-            </Button>
-            <Button
-              type="link"
-              size="small"
-              onClick={() => {
-                confirm({ closeDropdown: false });
-                setSearchValues({
-                  searchText: selectedKeys[0],
-                  searchedColumn: dataIndex,
-                });
-              }}
-            >
-              Filter
+              Annuler
             </Button>
           </Space>
         </div>
@@ -115,13 +102,15 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
       filterIcon: (filtered) => (
         <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
       ),
-      onFilter: (value, record) =>
-        record[dataIndex]
+      onFilter: (value, record) => {
+        console.log(value, record);
+        return record[dataIndex]
           ? record[dataIndex]
               .toString()
               .toLowerCase()
               .includes(value.toLowerCase())
-          : "",
+          : "";
+      },
     });
     const getColumnSortProps = (dataIndex) => {
       return {
