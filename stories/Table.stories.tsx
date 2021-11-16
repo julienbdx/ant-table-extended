@@ -23,9 +23,9 @@ export const AntTableExtendedDefault = () => {
   return (
     <TableExtended
       dataSource={dataSource}
-      selectedColumnsKeys={["firstName", "lastName"]}
+      selectedColumnsKeys={["firstName", "lastName", "abv"]}
       columns={columns}
-      searchableColumnsKeys={["firstName"]}
+      searchableColumnsKeys={["firstName", "abv"]}
       sortableColumnsKeys={["firstName"]}
     />
   );

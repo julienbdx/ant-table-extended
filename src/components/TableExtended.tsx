@@ -103,7 +103,13 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
         <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
       ),
       onFilter: (value, record) => {
-        console.log(value, record);
+        const filterFunc = columns.find((c) => {
+          // @ts-ignore
+          return c.key === dataIndex || c.dataIndex === dataIndex;
+        })?.onFilter;
+
+        if (filterFunc) return filterFunc(value, record);
+
         return record[dataIndex]
           ? record[dataIndex]
               .toString()
