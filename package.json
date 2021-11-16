@@ -1,6 +1,6 @@
 {
   "name": "@julienbdx/ant-table-extended",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "author": {
     "name": "Julien Lemonnier",
     "url": "https://github.com/julienbdx"
@@ -73,8 +73,8 @@
   },
   "dependencies": {
     "@types/react-csv": "^1.1.2",
+    "highlight-words-core": "^1.2.2",
     "react-csv": "^2.0.3",
-    "react-to-print": "^2.14.0",
-    "highlight-words-core": "^1.2.2"
+    "react-to-print": "^2.14.0"
   }
 }
