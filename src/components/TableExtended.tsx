@@ -5,6 +5,7 @@ import TableExtendedButtons from "./Buttons/TableExtendedButtons";
 import "./TableExtended.css";
 import { ColumnsType } from "antd/es/table";
 import { SearchOutlined } from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
 
 export type ITableUtils = {
   selectedColumnsKeys?: string[];
@@ -14,6 +15,11 @@ export type ITableUtils = {
   extras?: JSX.Element[];
 };
 export type ITableProps<T> = TableProps<T> & ITableUtils;
+
+type searchInfos = {
+  searchText: "";
+  searchedColumn: "";
+};
 
 export const TableExtended: React.FC<ITableProps<any>> = ({
   extras = undefined,
@@ -38,23 +44,23 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
 
   // RECHERCHE
 
-  const [searchValues, setSearchValues] = useState({
-    searchText: "",
-    searchedColumn: "",
-  });
+  const [searchValues, setSearchValues] = useState<searchInfos[]>([]);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
-    setSearchValues({
-      searchText: selectedKeys[0],
-      searchedColumn: dataIndex,
-    });
+    setSearchValues((prev) => [
+      ...prev.filter((c) => c.searchedColumn !== dataIndex),
+      {
+        searchText: selectedKeys[0],
+        searchedColumn: dataIndex,
+      },
+    ]);
   };
 
-  const handleReset = (clearFilters) => {
+  const handleReset = (clearFilters, dataIndex) => {
     clearFilters();
     setSearchValues((prev) => {
-      return { ...prev, searchText: "" };
+      return [...prev.filter((c) => c.searchedColumn !== dataIndex)];
     });
   };
 
@@ -90,7 +96,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
               Rechercher
             </Button>
             <Button
-              onClick={() => handleReset(clearFilters)}
+              onClick={() => handleReset(clearFilters, dataIndex)}
               size="small"
               style={{ width: 90 }}
             >
@@ -99,6 +105,31 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
           </Space>
         </div>
       ),
+      render: (text, record, index) => {
+        const renderFunc = columns.find((c) => {
+          // @ts-ignore
+          return c.key === dataIndex || c.dataIndex === dataIndex;
+        })?.render;
+        const searchColumnInfos = searchValues.find(
+          (c) => c.searchedColumn === dataIndex
+        );
+        if (
+          searchColumnInfos &&
+          dataIndex === searchColumnInfos?.searchedColumn
+        ) {
+          return (
+            <Highlighter
+              key={dataIndex}
+              textToHighlight={
+                renderFunc ? renderFunc(text, record, index) : text
+              }
+              searchWords={[searchColumnInfos.searchText]}
+              highlightClassName={"searchHighlight"}
+            />
+          );
+        }
+        return renderFunc ? renderFunc(text, record, index) : text;
+      },
       filterIcon: (filtered) => (
         <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
       ),
@@ -183,8 +214,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
     return cols;
   }, [
     extraColumns,
-    searchValues.searchText,
-    searchValues.searchedColumn,
+    searchValues,
     searchableColumnsKeys,
     sortableColumnsKeys,
     columns,

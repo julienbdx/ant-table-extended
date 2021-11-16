@@ -22,13 +22,13 @@ export const columns: ColumnsType = [
     dataIndex: "country",
     title: "Country abbreviation",
     render: (value) => {
-      return value.toUpperCase().slice(0, 2);
+      return value?.toUpperCase().slice(0, 2);
     },
     onFilter: (value: string, record: any) => {
       return record.country
         .toUpperCase()
         .slice(0, 2)
-        .includes(value.toUpperCase());
+        .includes(value?.toUpperCase());
     },
   },
 ];

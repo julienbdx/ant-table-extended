@@ -19,6 +19,11 @@
   margin-right: 5px;
 }
 
+.searchHighlight {
+  padding: 0;
+  text-decoration: underline;
+}
+
 @media print {
   .print-only {
     display: block;
