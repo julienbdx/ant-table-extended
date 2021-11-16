@@ -5,7 +5,7 @@ import TableExtendedButtons from "./Buttons/TableExtendedButtons";
 import "./TableExtended.css";
 import { ColumnsType } from "antd/es/table";
 import { SearchOutlined } from "@ant-design/icons";
-import Highlighter from "react-highlight-words";
+import Highlighter from "./Highlighter";
 
 export type ITableUtils = {
   selectedColumnsKeys?: string[];

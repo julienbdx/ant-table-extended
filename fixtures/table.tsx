@@ -1,3 +1,4 @@
+import React from "react";
 import { ColumnsType } from "antd/es/table";
 
 // @ts-ignore
@@ -22,7 +23,7 @@ export const columns: ColumnsType = [
     dataIndex: "country",
     title: "Country abbreviation",
     render: (value) => {
-      return value?.toUpperCase().slice(0, 2);
+      return <b>{value?.toUpperCase().slice(0, 2)}</b>;
     },
     onFilter: (value: string, record: any) => {
       return record.country
