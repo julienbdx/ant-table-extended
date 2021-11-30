@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Col, Input, Row, Space, Table } from "antd";
 import { TableProps } from "antd/lib/table/Table";
 import TableExtendedButtons from "./Buttons/TableExtendedButtons";
@@ -13,6 +13,7 @@ export type ITableUtils = {
   sortableColumnsKeys?: string[];
   extraColumns?: ColumnsType<any>;
   extras?: JSX.Element[];
+  setSelectedColumnsKeys?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 export type ITableProps<T> = TableProps<T> & ITableUtils;
 
@@ -29,6 +30,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
   selectedColumnsKeys = undefined,
   searchableColumnsKeys = undefined,
   sortableColumnsKeys,
+  setSelectedColumnsKeys,
   ...otherProps
 }) => {
   const tableRef = useRef<any>();
@@ -41,6 +43,13 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
         (c) => (c.key as string) ?? c.dataIndex
       )
   );
+
+  // SELECTED COLUMNS
+  useEffect(() => {
+    if (setSelectedColumnsKeys) {
+      setSelectedColumnsKeys(tableSelectedColumnsKeys);
+    }
+  }, [tableSelectedColumnsKeys]);
 
   // RECHERCHE
 
