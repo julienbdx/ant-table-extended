@@ -4,7 +4,7 @@ import { TableProps } from "antd/lib/table/Table";
 import TableExtendedButtons from "./Buttons/TableExtendedButtons";
 import "./TableExtended.css";
 import { ColumnsType } from "antd/es/table";
-import { SearchOutlined } from "@ant-design/icons";
+import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
 import Highlighter from "./Highlighter";
 
 export type ITableUtils = {
@@ -49,7 +49,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
     if (setSelectedColumnsKeys) {
       setSelectedColumnsKeys(tableSelectedColumnsKeys);
     }
-  }, [tableSelectedColumnsKeys]);
+  }, [setSelectedColumnsKeys, tableSelectedColumnsKeys]);
 
   // RECHERCHE
 
@@ -141,7 +141,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
         return renderFunc ? renderFunc(text, record, index) : text;
       },
       filterIcon: (filtered) => (
-        <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+        <FilterOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
       ),
       onFilter: (value, record) => {
         const filterFunc = columns.find((c) => {
