@@ -66,11 +66,12 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
     ]);
   };
 
-  const handleReset = (clearFilters, dataIndex) => {
+  const handleReset = (clearFilters, dataIndex, confirm) => {
     clearFilters();
     setSearchValues((prev) => {
       return [...prev.filter((c) => c.searchedColumn !== dataIndex)];
     });
+    confirm();
   };
 
   // /RECHERCHE
@@ -105,7 +106,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
               Rechercher
             </Button>
             <Button
-              onClick={() => handleReset(clearFilters, dataIndex)}
+              onClick={() => handleReset(clearFilters, dataIndex, confirm)}
               size="small"
               style={{ width: 90 }}
             >

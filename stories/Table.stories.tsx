@@ -5,6 +5,7 @@ import { TableProps } from "antd/lib/table/Table";
 // @ts-ignore
 import { columns, dataSource } from "../fixtures/table";
 import TableExtended from "../src/components/TableExtended";
+import { useState } from "react";
 
 export default {
   component: TableExtended,
@@ -20,13 +21,20 @@ export const Default = (props: TableProps<any>) => {
 };
 
 export const AntTableExtendedDefault = () => {
+  const [selectedColumnsKeys, setSelectedColumnsKeys] = useState<string[]>([
+    "firstName",
+    "lastName",
+    "abv",
+  ]);
+
   return (
     <TableExtended
       dataSource={dataSource}
-      selectedColumnsKeys={["firstName", "lastName", "abv"]}
+      selectedColumnsKeys={selectedColumnsKeys}
       columns={columns}
       searchableColumnsKeys={["firstName", "abv"]}
       sortableColumnsKeys={["firstName"]}
+      setSelectedColumnsKeys={setSelectedColumnsKeys}
     />
   );
 };
