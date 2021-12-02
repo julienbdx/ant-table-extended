@@ -10,6 +10,7 @@ import Highlighter from "./Highlighter";
 export type ITableUtils = {
   selectedColumnsKeys?: string[];
   searchableColumnsKeys?: string[];
+  searchableByValueColumnsKeys?: string[];
   sortableColumnsKeys?: string[];
   extraColumns?: ColumnsType<any>;
   extras?: JSX.Element[];
@@ -29,6 +30,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
   columns,
   selectedColumnsKeys = undefined,
   searchableColumnsKeys = undefined,
+  searchableByValueColumnsKeys,
   sortableColumnsKeys,
   setSelectedColumnsKeys,
   ...otherProps
@@ -74,9 +76,8 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
     confirm();
   };
 
-  // /RECHERCHE
+  // /FIN RECHERCHE
 
-  // TRI
   const getColumns = useCallback(() => {
     const getColumnSearchProps = (dataIndex) => ({
       filterDropdown: ({
@@ -167,6 +168,25 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
           : "";
       },
     });
+
+    const getColumnSearchByValueProps = (dataIndex) => {
+      return {
+        filterIcon: (filtered) => (
+          <FilterOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+        ),
+        filters: dataSource
+          .map((r) => r[dataIndex])
+          .filter((value, index, self) => self.indexOf(value) === index)
+          .map((r) => {
+            return { text: r, value: r };
+          })
+          .sort((a, b) =>
+            a.value.toUpperCase().localeCompare(b.value.toUpperCase())
+          ),
+        onFilter: (value, record) => record[dataIndex].indexOf(value) === 0,
+      };
+    };
+
     const getColumnSortProps = (dataIndex) => {
       return {
         sorter: (a, b) =>
@@ -179,6 +199,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
     };
     // /TRI
 
+    // Que les colonnes visibles
     let cols = [
       ...columns.filter(
         (c) =>
@@ -191,7 +212,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
       ...(extraColumns ?? []),
     ];
 
-    // Colonne searchabe
+    // Colonne searchable props
     cols = cols.map((c) => {
       if (
         searchableColumnsKeys &&
@@ -205,6 +226,25 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
           ...c,
           // @ts-ignore
           ...getColumnSearchProps(c.key || c.dataIndex || c.id),
+        };
+      }
+      return c;
+    });
+
+    // Colonne searchable props by value
+    cols = cols.map((c) => {
+      if (
+        searchableByValueColumnsKeys &&
+        searchableByValueColumnsKeys.find(
+          // @ts-ignore
+          (sc) => sc === c.key || sc === c.dataIndex || sc === c.id
+        )
+      ) {
+        // colonne searchable
+        c = {
+          ...c,
+          // @ts-ignore
+          ...getColumnSearchByValueProps(c.key || c.dataIndex || c.id),
         };
       }
       return c;
