@@ -51,6 +51,14 @@ export const AntTableExtendedDefault = () => {
       sortableColumnsKeys={["firstName"]}
       setSelectedColumnsKeys={setSelectedColumnsKeys}
       onTableChange={onTableChange}
+      defaultSetting={{
+        pagination: { current: 2, pageSize: 5 },
+        filters: { firstName: ["Al"] },
+        sorter: {
+          columnKey: "firstName",
+          order: "descend",
+        },
+      }}
     />
   );
 };

@@ -28,6 +28,12 @@ export type ITableUtils = {
   extraColumns?: ColumnsType<any>;
   extras?: JSX.Element[];
   setSelectedColumnsKeys?: React.Dispatch<React.SetStateAction<string[]>>;
+  defaultSetting?: {
+    pagination?: TablePaginationConfig;
+    filters?: Record<string, FilterValue | null>;
+    sorter?: SorterResult<any> | SorterResult<any>[];
+    extra?: TableCurrentDataSource<any>;
+  };
   onTableChange?: (
     pagination: TablePaginationConfig,
     filters: Record<string, FilterValue | null>,
@@ -53,6 +59,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
   sortableColumnsKeys,
   setSelectedColumnsKeys,
   onTableChange,
+  defaultSetting,
   ...otherProps
 }) => {
   const tableRef = useRef<any>();
@@ -286,6 +293,22 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
           ...getColumnSortProps(c.key || c.dataIndex || c.id),
         };
       }
+
+      c.defaultFilteredValue =
+        defaultSetting && defaultSetting?.filters
+          ? // @ts-ignore
+            defaultSetting.filters[c.dataIndex]
+          : undefined;
+
+      c.defaultSortOrder =
+        // @ts-ignore
+        defaultSetting?.sorter?.columnKey === c.key ||
+        // @ts-ignore
+        defaultSetting?.sorter?.columnKey === c.dataIndex
+          ? // @ts-ignore
+            defaultSetting?.sorter?.order
+          : undefined;
+
       return c;
     });
 
@@ -299,11 +322,17 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
     searchableColumnsKeys,
     searchableByValueColumnsKeys,
     sortableColumnsKeys,
+    defaultSetting,
   ]);
 
   return (
     <div ref={tableRef}>
       <Table
+        pagination={
+          defaultSetting && defaultSetting.pagination
+            ? defaultSetting.pagination
+            : undefined
+        }
         onChange={(
           pagination: TablePaginationConfig,
           filters: Record<string, FilterValue | null>,
