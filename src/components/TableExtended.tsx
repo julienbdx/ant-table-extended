@@ -297,7 +297,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
       c.defaultFilteredValue =
         defaultSetting && defaultSetting?.filters
           ? // @ts-ignore
-            defaultSetting.filters[c.dataIndex]
+            defaultSetting.filters[c.dataIndex] ?? defaultSetting.filters[c.key]
           : undefined;
 
       c.defaultSortOrder =
