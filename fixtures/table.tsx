@@ -1,5 +1,7 @@
 import React from "react";
 import { ColumnsType } from "antd/es/table";
+import { Tag, Typography } from "antd";
+import { ArrowRightOutlined } from "@ant-design/icons";
 
 // @ts-ignore
 export { default as dataSource } from "./people-small";
@@ -23,7 +25,11 @@ export const columns: ColumnsType = [
     dataIndex: "country",
     title: "Country abbreviation",
     render: (value) => {
-      return <b>{value?.toUpperCase().slice(0, 2)}</b>;
+      return (
+        <Tag icon={<ArrowRightOutlined />}>
+          <Typography>{value?.toUpperCase().slice(0, 2)}</Typography>
+        </Tag>
+      );
     },
     onFilter: (value: string, record: any) => {
       return record.country

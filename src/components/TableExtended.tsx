@@ -84,37 +84,45 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
         selectedKeys,
         confirm,
         clearFilters,
-      }) => (
-        <div style={{ padding: 8 }}>
-          <Input
-            placeholder={`Rechercher ${dataIndex}`}
-            value={selectedKeys[0]}
-            onChange={(e) =>
-              setSelectedKeys(e.target.value ? [e.target.value] : [])
-            }
-            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            style={{ marginBottom: 8, display: "block" }}
-          />
-          <Space>
-            <Button
-              type="primary"
-              onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-              icon={<SearchOutlined />}
-              size="small"
-              style={{ width: 120 }}
-            >
-              Rechercher
-            </Button>
-            <Button
-              onClick={() => handleReset(clearFilters, dataIndex, confirm)}
-              size="small"
-              style={{ width: 90 }}
-            >
-              Annuler
-            </Button>
-          </Space>
-        </div>
-      ),
+      }) => {
+        const col = columns.find((c) => {
+          // @ts-ignore
+          return c.key === dataIndex || c.dataIndex === dataIndex;
+        });
+        return (
+          <div style={{ padding: 8 }}>
+            <Input
+              placeholder={`Rechercher ${col.title ?? dataIndex}`}
+              value={selectedKeys[0]}
+              onChange={(e) =>
+                setSelectedKeys(e.target.value ? [e.target.value] : [])
+              }
+              onPressEnter={() =>
+                handleSearch(selectedKeys, confirm, dataIndex)
+              }
+              style={{ marginBottom: 8, display: "block" }}
+            />
+            <Space>
+              <Button
+                type="primary"
+                onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                icon={<SearchOutlined />}
+                size="small"
+                style={{ width: 120 }}
+              >
+                Rechercher
+              </Button>
+              <Button
+                onClick={() => handleReset(clearFilters, dataIndex, confirm)}
+                size="small"
+                style={{ width: 90 }}
+              >
+                Annuler
+              </Button>
+            </Space>
+          </div>
+        );
+      },
       render: (text, record, index) => {
         const renderFunc = columns.find((c) => {
           // @ts-ignore
