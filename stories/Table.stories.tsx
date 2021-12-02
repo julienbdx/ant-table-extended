@@ -1,11 +1,16 @@
 import * as React from "react";
 import "antd/dist/antd.compact.min.css";
-import { Table } from "antd";
+import { Table, TablePaginationConfig } from "antd";
 import { TableProps } from "antd/lib/table/Table";
 // @ts-ignore
 import { columns, dataSource } from "../fixtures/table";
 import TableExtended from "../src/components/TableExtended";
 import { useState } from "react";
+import {
+  FilterValue,
+  SorterResult,
+  TableCurrentDataSource,
+} from "antd/es/table/interface";
 
 export default {
   component: TableExtended,
@@ -27,6 +32,15 @@ export const AntTableExtendedDefault = () => {
     "abv",
   ]);
 
+  const onTableChange = (
+    pagination: TablePaginationConfig,
+    filters: Record<string, FilterValue | null>,
+    sorter: SorterResult<any> | SorterResult<any>[],
+    extra: TableCurrentDataSource<any>
+  ) => {
+    console.log(pagination, filters, sorter, extra);
+  };
+
   return (
     <TableExtended
       dataSource={dataSource}
@@ -36,6 +50,7 @@ export const AntTableExtendedDefault = () => {
       searchableByValueColumnsKeys={["firstName"]}
       sortableColumnsKeys={["firstName"]}
       setSelectedColumnsKeys={setSelectedColumnsKeys}
+      onTableChange={onTableChange}
     />
   );
 };

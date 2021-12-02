@@ -1,11 +1,24 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Col, Input, Row, Space, Table } from "antd";
+import {
+  Button,
+  Col,
+  Input,
+  Row,
+  Space,
+  Table,
+  TablePaginationConfig,
+} from "antd";
 import { TableProps } from "antd/lib/table/Table";
 import TableExtendedButtons from "./Buttons/TableExtendedButtons";
 import "./TableExtended.css";
 import { ColumnsType } from "antd/es/table";
 import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
 import Highlighter from "./Highlighter";
+import {
+  FilterValue,
+  SorterResult,
+  TableCurrentDataSource,
+} from "antd/es/table/interface";
 
 export type ITableUtils = {
   selectedColumnsKeys?: string[];
@@ -15,6 +28,12 @@ export type ITableUtils = {
   extraColumns?: ColumnsType<any>;
   extras?: JSX.Element[];
   setSelectedColumnsKeys?: React.Dispatch<React.SetStateAction<string[]>>;
+  onTableChange?: (
+    pagination: TablePaginationConfig,
+    filters: Record<string, FilterValue | null>,
+    sorter: SorterResult<any> | SorterResult<any>[],
+    extra: TableCurrentDataSource<any>
+  ) => void;
 };
 export type ITableProps<T> = TableProps<T> & ITableUtils;
 
@@ -33,6 +52,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
   searchableByValueColumnsKeys,
   sortableColumnsKeys,
   setSelectedColumnsKeys,
+  onTableChange,
   ...otherProps
 }) => {
   const tableRef = useRef<any>();
@@ -271,17 +291,27 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
 
     return cols;
   }, [
+    columns,
     extraColumns,
     searchValues,
-    searchableColumnsKeys,
-    sortableColumnsKeys,
-    columns,
+    dataSource,
     tableSelectedColumnsKeys,
+    searchableColumnsKeys,
+    searchableByValueColumnsKeys,
+    sortableColumnsKeys,
   ]);
 
   return (
     <div ref={tableRef}>
       <Table
+        onChange={(
+          pagination: TablePaginationConfig,
+          filters: Record<string, FilterValue | null>,
+          sorter: SorterResult<any> | SorterResult<any>[],
+          extra: TableCurrentDataSource<any>
+        ) => {
+          if (onTableChange) onTableChange(pagination, filters, sorter, extra);
+        }}
         className="TableExtended"
         dataSource={dataSource}
         columns={getColumns()}
