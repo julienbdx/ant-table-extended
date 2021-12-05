@@ -12,7 +12,7 @@ import { TableProps } from "antd/lib/table/Table";
 import TableExtendedButtons from "./Buttons/TableExtendedButtons";
 import "./TableExtended.css";
 import { ColumnsType } from "antd/es/table";
-import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
+import { FilterFilled, SearchOutlined } from "@ant-design/icons";
 import Highlighter from "./Highlighter";
 import {
   FilterValue,
@@ -177,7 +177,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
         return renderFunc ? renderFunc(text, record, index) : text;
       },
       filterIcon: (filtered) => (
-        <FilterOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+        <FilterFilled style={{ color: filtered ? "#1890ff" : undefined }} />
       ),
       onFilter: (value, record) => {
         const filterFunc = columns.find((c) => {
@@ -199,7 +199,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
     const getColumnSearchByValueProps = (dataIndex) => {
       return {
         filterIcon: (filtered) => (
-          <FilterOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+          <FilterFilled style={{ color: filtered ? "#1890ff" : undefined }} />
         ),
         filters: dataSource
           .map((r) => r[dataIndex])
@@ -346,7 +346,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
         columns={getColumns()}
         {...otherProps}
         title={() => (
-          <Row justify="end">
+          <Row key={"title"} justify="end">
             <Col span={24}>
               <Space className="w-100 mlauto-2">
                 <div>{extras} </div>

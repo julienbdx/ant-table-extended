@@ -27,8 +27,8 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "lint": "tsdx lint src stories",
-    "lint-fix": "tsdx lint --fix src stories",
+    "lint": "tsdx lint src && tsdx lint stories",
+    "lint-fix": "tsdx lint --fix src && tsdx lint --fix stories",
     "prepare": "tsdx build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
