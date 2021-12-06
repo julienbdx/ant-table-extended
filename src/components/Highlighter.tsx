@@ -1,27 +1,27 @@
 import { findAll } from "highlight-words-core";
-import PropTypes from "prop-types";
 import React from "react";
 
-Highlighter.propTypes = {
-  activeClassName: PropTypes.string,
-  activeIndex: PropTypes.number,
-  activeStyle: PropTypes.object,
-  autoEscape: PropTypes.bool,
-  className: PropTypes.string,
-  highlightClassName: PropTypes.string,
-  highlightStyle: PropTypes.object,
-  sanitize: PropTypes.func,
-  searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
-  textToHighlight: PropTypes.any.isRequired,
-  unhighlightClassName: PropTypes.string,
-  unhighlightStyle: PropTypes.object,
-};
+interface IHighlighter {
+  activeClassName?: string;
+  activeIndex?: number;
+  activeStyle?: object;
+  autoEscape?: boolean;
+  className?: string;
+  highlightClassName: string;
+  highlightStyle?: object;
+  sanitize?: any;
+  searchWords: string[];
+  textToHighlight: any;
+  unhighlightClassName?: string;
+  unhighlightStyle?: object;
+  caseSensitive?: boolean;
+}
 
 /**
  * Highlights all occurrences of search terms (searchText) within a string (textToHighlight).
  * This function returns an array of strings and <span>s (wrapping highlighted words).
  */
-export default function Highlighter({
+export const Highlighter = ({
   activeClassName = "",
   activeIndex = -1,
   activeStyle,
@@ -35,7 +35,7 @@ export default function Highlighter({
   textToHighlight,
   unhighlightClassName = "",
   unhighlightStyle,
-}) {
+}: IHighlighter): JSX.Element => {
   const chunks = findAll({
     autoEscape,
     caseSensitive,
@@ -93,4 +93,6 @@ export default function Highlighter({
       })}
     </span>
   );
-}
+};
+
+export default Highlighter;

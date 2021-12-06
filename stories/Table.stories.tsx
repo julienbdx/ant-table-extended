@@ -46,7 +46,7 @@ export const AntTableExtendedDefault = () => {
       dataSource={dataSource}
       selectedColumnsKeys={selectedColumnsKeys}
       columns={columns}
-      searchableColumnsKeys={["abv"]}
+      searchableColumnsKeys={["abv", "lastName"]}
       searchableByValueColumnsKeys={["firstName"]}
       sortableColumnsKeys={["firstName"]}
       setSelectedColumnsKeys={setSelectedColumnsKeys}
