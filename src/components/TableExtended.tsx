@@ -20,12 +20,20 @@ import {
   TableCurrentDataSource,
 } from "antd/es/table/interface";
 
-export type ITableUtils = {
+export type IColumnCustomizedProps<T> = {
+  renderExport?: (record: ColumnsType<T>) => string;
+};
+
+export type ITableExtendedColumn<T> = ColumnsType<T> &
+  IColumnCustomizedProps<T>;
+
+export type ITableExtendedCustomizedProps<T> = {
   selectedColumnsKeys?: string[];
   searchableColumnsKeys?: string[];
   searchableByValueColumnsKeys?: string[];
   sortableColumnsKeys?: string[];
-  extraColumns?: ColumnsType<any>;
+  extraColumns?: ColumnsType<T>;
+  columns?: ITableExtendedColumn<T>;
   extras?: JSX.Element[];
   setSelectedColumnsKeys?: React.Dispatch<React.SetStateAction<string[]>>;
   defaultSetting?: {
@@ -41,7 +49,7 @@ export type ITableUtils = {
     extra: TableCurrentDataSource<any>
   ) => void;
 };
-export type ITableProps<T> = TableProps<T> & ITableUtils;
+export type ITableProps<T> = TableProps<T> & ITableExtendedCustomizedProps<T>;
 
 type searchInfos = {
   searchText: "";

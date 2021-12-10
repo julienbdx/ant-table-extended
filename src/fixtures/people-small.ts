@@ -1,3 +1,10 @@
+export type PeoleType = {
+  key: number;
+  firstName: string;
+  lastName: string;
+  country: string;
+};
+
 export default [
   {
     key: 0,
@@ -605,4 +612,4 @@ export default [
     lastName: "Watsica",
     country: "Guinea-Bissau",
   },
-];
+] as PeoleType[];

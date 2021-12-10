@@ -10,7 +10,7 @@ import { useReactToPrint } from "react-to-print";
 
 export type IButtonColumnsProps = {
   labelExport?: string;
-  columns: any[];
+  columns: any;
   data: any[];
   selectedColumnsKeys: string[];
   transferTitles?: string[];
@@ -53,9 +53,12 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
         const columnDef = columns.find(
           (c) => c.key === col || c.id === col || c.dataIndex === col
         );
-        elem[columnDef.title || columnDef.label || columnDef.name || col] = row[
-          col
-        ] as string;
+
+        elem[
+          columnDef.title || columnDef.label || columnDef.name || col
+        ] = columnDef.renderExport
+          ? (columnDef.renderExport(row as string, row) as string)
+          : (row[col] as string);
       });
       res.push(elem);
     });

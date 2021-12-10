@@ -3,7 +3,7 @@ import "antd/dist/antd.compact.min.css";
 import { Table, TablePaginationConfig } from "antd";
 import { TableProps } from "antd/lib/table/Table";
 // @ts-ignore
-import { columns, dataSource } from "../fixtures/table";
+import { columns, dataSource } from "../src/fixtures/table";
 import TableExtended from "../src/components/TableExtended";
 import { useState } from "react";
 import {

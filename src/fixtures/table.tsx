@@ -1,12 +1,13 @@
 import React from "react";
-import { ColumnsType } from "antd/es/table";
 import { Tag, Typography } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { PeoleType } from "./people-small";
+import { ITableExtendedColumn } from "../components/TableExtended";
 
 // @ts-ignore
 export { default as dataSource } from "./people-small";
 
-export const columns: ColumnsType = [
+export const columns: ITableExtendedColumn<PeoleType> = [
   {
     title: "First Name",
     dataIndex: "firstName",
@@ -22,7 +23,7 @@ export const columns: ColumnsType = [
   },
   {
     key: "abv",
-    dataIndex: "country",
+    dataIndex: "abv",
     title: "Country abbreviation",
     render: (value) => {
       return (
@@ -36,6 +37,9 @@ export const columns: ColumnsType = [
         .toUpperCase()
         .slice(0, 2)
         .includes(value?.toUpperCase());
+    },
+    renderExport: (record) => {
+      return record?.country.toUpperCase().slice(0, 2);
     },
   },
 ];
