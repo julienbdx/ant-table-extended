@@ -278,8 +278,9 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
         // colonne searchable
         c = {
           ...c,
-          // @ts-ignore
-          ...getColumnSearchByValueProps(c.key || c.dataIndex || c.id),
+          ...(c.filters ??
+            // @ts-ignore
+            getColumnSearchByValueProps(c.key || c.dataIndex || c.id)),
         };
       }
       return c;
