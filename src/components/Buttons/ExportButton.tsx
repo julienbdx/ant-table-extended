@@ -54,11 +54,12 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
           (c) => c.key === col || c.id === col || c.dataIndex === col
         );
 
-        elem[
-          columnDef.title || columnDef.label || columnDef.name || col
-        ] = columnDef.renderExport
-          ? (columnDef.renderExport(row as string, row) as string)
-          : (row[col] as string);
+        if (columnDef)
+          elem[
+            columnDef.title || columnDef.label || columnDef.name || col
+          ] = columnDef.renderExport
+            ? (columnDef.renderExport(row as string, row) as string)
+            : (row[col] as string);
       });
       res.push(elem);
     });

@@ -121,14 +121,10 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
         confirm,
         clearFilters,
       }) => {
-        const col = columns.find((c) => {
-          // @ts-ignore
-          return c.key === dataIndex || c.dataIndex === dataIndex;
-        });
         return (
           <div style={{ padding: 8 }}>
             <Input
-              placeholder={`Rechercher ${col.title ?? dataIndex}`}
+              placeholder={`Rechercher...`}
               value={selectedKeys[0]}
               onChange={(e) =>
                 setSelectedKeys(e.target.value ? [e.target.value] : [])
