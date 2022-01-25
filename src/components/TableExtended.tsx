@@ -289,7 +289,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
         sortableColumnsKeys.find(
           // @ts-ignore
           (sc) => sc === c.key || sc === c.dataIndex || sc === c.id
-        )
+        ) !== undefined
       ) {
         // colonne sortable
         c = {
