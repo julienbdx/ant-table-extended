@@ -298,21 +298,23 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
           ...getColumnSortProps(c.key || c.dataIndex || c.id),
         };
       }
+      if (c) {
+        c.defaultFilteredValue =
+          defaultSetting && defaultSetting?.filters
+            ? // @ts-ignore
+              defaultSetting.filters[c.dataIndex] ??
+              defaultSetting.filters[c.key]
+            : undefined;
 
-      c.defaultFilteredValue =
-        defaultSetting && defaultSetting?.filters
-          ? // @ts-ignore
-            defaultSetting.filters[c.dataIndex] ?? defaultSetting.filters[c.key]
-          : undefined;
-
-      c.defaultSortOrder =
-        // @ts-ignore
-        defaultSetting?.sorter?.columnKey === c.key ||
-        // @ts-ignore
-        defaultSetting?.sorter?.columnKey === c.dataIndex
-          ? // @ts-ignore
-            defaultSetting?.sorter?.order
-          : undefined;
+        c.defaultSortOrder =
+          // @ts-ignore
+          defaultSetting?.sorter?.columnKey === c.key ||
+          // @ts-ignore
+          defaultSetting?.sorter?.columnKey === c.dataIndex
+            ? // @ts-ignore
+              defaultSetting?.sorter?.order
+            : undefined;
+      }
 
       return c;
     });
