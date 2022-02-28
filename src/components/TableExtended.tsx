@@ -34,6 +34,7 @@ export type ITableExtendedCustomizedProps<T> = {
   sortableColumnsKeys?: string[];
   extraColumns?: ColumnsType<T>;
   columns?: ITableExtendedColumn<T>;
+  columnsExport?: ITableExtendedColumn<T>;
   extras?: JSX.Element[];
   setSelectedColumnsKeys?: React.Dispatch<React.SetStateAction<string[]>>;
   defaultSetting?: {
@@ -61,6 +62,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
   extraColumns,
   dataSource,
   columns,
+  columnsExport,
   selectedColumnsKeys = undefined,
   searchableColumnsKeys = undefined,
   searchableByValueColumnsKeys,
@@ -89,7 +91,6 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
   }, [setSelectedColumnsKeys, tableSelectedColumnsKeys]);
 
   // RECHERCHE
-
   const [searchValues, setSearchValues] = useState<searchInfos[]>([]);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -361,6 +362,7 @@ export const TableExtended: React.FC<ITableProps<any>> = ({
                   // @ts-ignore
                   data={dataSource}
                   columns={columns}
+                  columnsExport={columnsExport}
                   setSelectedColumnsKeys={setTableSelectedColumnsKeys}
                   selectedColumnsKeys={tableSelectedColumnsKeys}
                 />
