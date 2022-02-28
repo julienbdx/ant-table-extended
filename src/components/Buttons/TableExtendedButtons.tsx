@@ -22,7 +22,6 @@ export const TableExtendedButtons: React.FC<IColumnsButtonProps> = ({
   setSelectedColumnsKeys,
   labelColonnes = "Colonnes",
   labelExporter = "Exporter",
-  labelExporterComplet = "Exporter (complet)",
   transferTitles = ["Toutes les colonnes", "Colonnes sélectionnées"],
   data,
 }) => {
@@ -43,15 +42,6 @@ export const TableExtendedButtons: React.FC<IColumnsButtonProps> = ({
           data={data}
           columns={columnsExport ? columnsExport : columns}
           selectedColumnsKeys={selectedColumnsKeys}
-        />
-        <ExportButton
-          key="export-all"
-          labelExport={labelExporterComplet}
-          data={data}
-          columns={columnsExport ? columnsExport : columns}
-          selectedColumnsKeys={(columnsExport ? columnsExport : columns).map(
-            (c) => c.key
-          )}
         />
       </Space>
     </>

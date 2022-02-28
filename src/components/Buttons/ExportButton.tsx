@@ -45,27 +45,32 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
     setTransferTargetKeys(targetKeys);
   };
 
-  const prepareDataToCsv = useCallback(() => {
-    const res: Record<string, string>[] = [];
-    data.forEach((row) => {
-      let elem = {};
-      transferTargetKeys.forEach((col) => {
-        const columnDef = columns.find(
-          (c) => c.key === col || c.id === col || c.dataIndex === col
+  const prepareDataToCsv = useCallback(
+    (full: boolean) => {
+      const res: Record<string, string>[] = [];
+      data.forEach((row) => {
+        let elem = {};
+        (full ? columns.map((item) => item.key) : transferTargetKeys).forEach(
+          (col) => {
+            const columnDef = columns.find(
+              (c) => c.key === col || c.id === col || c.dataIndex === col
+            );
+
+            if (columnDef)
+              elem[
+                columnDef.title || columnDef.label || columnDef.name || col
+              ] = columnDef.renderExport
+                ? (columnDef.renderExport(row as string, row) as string)
+                : (row[col] as string);
+          }
         );
-
-        if (columnDef)
-          elem[
-            columnDef.title || columnDef.label || columnDef.name || col
-          ] = columnDef.renderExport
-            ? (columnDef.renderExport(row as string, row) as string)
-            : (row[col] as string);
+        res.push(elem);
       });
-      res.push(elem);
-    });
 
-    return res;
-  }, [columns, data, transferTargetKeys]);
+      return res;
+    },
+    [columns, data, transferTargetKeys]
+  );
 
   const prepareDataToPrint = useCallback(() => {
     const res = [];
@@ -114,11 +119,21 @@ export const ColumnsButton: React.FC<IButtonColumnsProps> = ({
               key="csv"
               className={"ant-btn"}
               separator={";"}
-              data={prepareDataToCsv()}
+              data={prepareDataToCsv(false)}
               filename={filename}
             >
               <FileExcelOutlined className={"icon-mr"} key="csv-icon" />
               <span key="csv-lib">Télécharger au format CSV</span>
+            </CSVLink>
+            <CSVLink
+              key="csv"
+              className={"ant-btn"}
+              separator={";"}
+              data={prepareDataToCsv(true)}
+              filename={filename}
+            >
+              <FileExcelOutlined className={"icon-mr"} key="csv-icon" />
+              <span key="csv-lib">Télécharger au format CSV (complet)</span>
             </CSVLink>
             <Button key="fermer" onClick={() => setModalExportVisible(false)}>
               Fermer
